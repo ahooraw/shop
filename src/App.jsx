@@ -3,6 +3,8 @@ import Header from './components/Header';
 import ProductList from './components/ProductList';
 import Filters from './components/Filters';
 import Pagination from './components/Pagination';
+import FilterForm from './components/FilterForm';
+import TopSelled from './components/Top-selled';
 import './App.css';
 
 function App() {
@@ -18,12 +20,12 @@ function App() {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      try {
+      try { 
         const response = await fetch(
           'https://kaaryar-ecom.liara.run/v1/categories'
         );
 
-        console.log('Status:', response.status);
+        // console.log('Status:', response.status);
         const rawResponse = await response.text();
 
         if (!response.ok) {
@@ -32,7 +34,6 @@ function App() {
 
         try {
           const data = JSON.parse(rawResponse);
-          console.log('Parsed JSON:', data);
           setCategories(data);
         } catch (err) {
           console.error('Not a valid JSON response:', rawResponse);
@@ -59,9 +60,13 @@ function App() {
           page: currentPage,
           limit: 10,
         }).toString();
-
+        let url = `https://kaaryar-ecom.liara.run/v1/products?page=${currentPage}&limit=10`
+        if (selectedCategory.length > 0) {
+          console.log(selectedCategory)
+          url = `https://kaaryar-ecom.liara.run/v1/products?category=${selectedCategory[0]._id}&page=${currentPage}&limit=10`
+        }
         const response = await fetch(
-          `https://kaaryar-ecom.liara.run/v1/products`
+          url
         );
 
         if (!response.ok) {
@@ -70,7 +75,7 @@ function App() {
 
         const data = await response.json();
         setProducts(data.products || []);
-        setTotalPages(data.totalPages || 1);
+        setTotalPages(data.pagination.totalPages || 1);
       } catch (error) {
         console.error('Error fetching products:', error.message);
         setProducts([]); 
@@ -81,22 +86,20 @@ function App() {
     fetchProducts();
   }, [selectedCategory, searchQuery, currentPage]);
 
-  // تغییر دسته‌بندی انتخاب‌شده
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setCurrentPage(1);
   };
 
-  // تغییر مقدار جستجو
   const handleSearch = (query) => {
     setSearchQuery(query);
     setCurrentPage(1);
   };
 
-  // تغییر صفحه
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
 
   return (
     <div className="app">
@@ -105,12 +108,9 @@ function App() {
       {error && <p className="error-message">{error}</p>}
 
       <div className="content">
-        <Filters
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onSelectCategory={handleCategoryChange}
-        />
+        <FilterForm categories={categories} selectedCategory={selectedCategory} onSelectCategory={handleCategoryChange} />
         <ProductList products={products} />
+        
       </div>
 
       <Pagination

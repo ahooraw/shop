@@ -137,6 +137,14 @@ header input {
   background-color: #fff;
 }
 
+.top-selling{
+  max-width:100%;
+}
+
+.top-product-image{
+  width: 100%;
+}
+
 .product-item h3 {
   font-size: 16px;
   margin: 10px 0;
@@ -169,4 +177,8 @@ header input {
 .pagination button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.active{
+  background-color: #0056b3;
 }
