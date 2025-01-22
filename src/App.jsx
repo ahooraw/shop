@@ -5,6 +5,7 @@ import Filters from './components/Filters';
 import Pagination from './components/Pagination';
 import FilterForm from './components/FilterForm';
 import TopSelled from './components/Top-selled';
+import ProductDetails from './components/ProductPage'
 import './App.css';
 
 function App() {
@@ -118,6 +119,7 @@ function App() {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
+      {/* <ProductDetails productId={"6748dfa3c9017c78628d4a95"}></ProductDetails> */}
     </div>
   );
 }
