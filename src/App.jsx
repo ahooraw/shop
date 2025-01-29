@@ -7,6 +7,7 @@ import FilterForm from './components/FilterForm';
 import TopSelled from './components/Top-selled';
 import ProductDetails from './components/ProductPage'
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [products, setProducts] = useState([]); 
@@ -103,12 +104,14 @@ function App() {
 
 
   return (
-    <div className="app">
+    <Router>
+      <div className='app'>
       <Header searchQuery={searchQuery} onSearch={handleSearch} />
-
       {error && <p className="error-message">{error}</p>}
-
-      <div className="content">
+      </div>
+      <Routes>
+        <Route path="/" element={<div className='app'>
+          <div className="content">
         <FilterForm categories={categories} selectedCategory={selectedCategory} onSelectCategory={handleCategoryChange} />
         <ProductList products={products} />
         
@@ -119,8 +122,11 @@ function App() {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
-      {/* <ProductDetails productId={"6748dfa3c9017c78628d4a95"}></ProductDetails> */}
-    </div>
+        </div>}></Route>
+        <Route path="/product/:productId" element={<ProductDetails />} />
+      </Routes>
+    </Router>
+
   );
 }
 

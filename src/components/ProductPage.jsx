@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ProductPageStyle.css";
+import { useParams } from "react-router-dom";
 
-const ProductDetails = ({ productId }) => {
+const ProductDetails = () => {
+  const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +13,6 @@ const ProductDetails = ({ productId }) => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`https://kaaryar-ecom.liara.run/v1/products/${productId}`);
-        console.log(response.data)
         setProduct(response.data);
       } catch (err) {
         setError("Failed to load product details.");

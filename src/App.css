@@ -225,3 +225,13 @@ header input {
   cursor: pointer;
   color: #ff5c5c;
 }
+
+
+.link-style{
+  text-decoration: none;
+  color: black;
+}
+
+.link-style:hover{
+  color: #1d1d1d;
+}
