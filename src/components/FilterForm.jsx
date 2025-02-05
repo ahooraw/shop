@@ -31,7 +31,7 @@ const FilterForm = ({ categories, selectedCategory, onSelectCategory }) => {
   return (
     <div className="filter-form">
       <div className="filter-section">
-        <h3>دسته‌بندی‌ها</h3>
+        <h3>categories</h3>
         {categories.map((category) => (
           <div>
             <label id={category._id} key={category._id}>
@@ -48,7 +48,7 @@ const FilterForm = ({ categories, selectedCategory, onSelectCategory }) => {
       </div>
 
       <div className="filter-section">
-        <h3>قیمت</h3>
+        <h3>price</h3>
         <input
           type="number"
           value={priceRange[0]}
@@ -63,7 +63,7 @@ const FilterForm = ({ categories, selectedCategory, onSelectCategory }) => {
       </div>
 
       <div className="filter-section">
-        <h3>برند</h3>
+        <h3>brand</h3>
         {brands.map((brand) => (
           <div>
             <label key={brand}>

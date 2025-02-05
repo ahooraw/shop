@@ -6,6 +6,7 @@ import Pagination from './components/Pagination';
 import FilterForm from './components/FilterForm';
 import TopSelled from './components/Top-selled';
 import ProductDetails from './components/ProductPage'
+import Layout from './components/Layout'
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -62,10 +63,10 @@ function App() {
           page: currentPage,
           limit: 10,
         }).toString();
-        let url = `https://kaaryar-ecom.liara.run/v1/products?page=${currentPage}&limit=10`
+        let url = `https://kaaryar-ecom.liara.run/v1/products?page=${currentPage}&limit=12`
         if (selectedCategory.length > 0) {
           console.log(selectedCategory)
-          url = `https://kaaryar-ecom.liara.run/v1/products?category=${selectedCategory[0]._id}&page=${currentPage}&limit=10`
+          url = `https://kaaryar-ecom.liara.run/v1/products?category=${selectedCategory[0]._id}&page=${currentPage}&limit=12`
         }
         const response = await fetch(
           url
@@ -105,25 +106,25 @@ function App() {
 
   return (
     <Router>
-      <div className='app'>
-      <Header searchQuery={searchQuery} onSearch={handleSearch} />
-      {error && <p className="error-message">{error}</p>}
-      </div>
       <Routes>
-        <Route path="/" element={<div className='app'>
+        <Route path='/' element={<Layout/>}>
+          <Route index element={<div className='app'>
+          <FilterForm categories={categories} selectedCategory={selectedCategory} onSelectCategory={handleCategoryChange} />
           <div className="content">
-        <FilterForm categories={categories} selectedCategory={selectedCategory} onSelectCategory={handleCategoryChange} />
-        <ProductList products={products} />
+          <ProductList products={products} />
         
-      </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
-        </div>}></Route>
-        <Route path="/product/:productId" element={<ProductDetails />} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            />
+          </div>
+            </div>}>
+          </Route>
+          <Route path="/product/:productId" element={<ProductDetails />} />
+        </Route>
+
       </Routes>
     </Router>
 

@@ -14,27 +14,49 @@ body {
 
 .app {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row; 
+  align-items: flex-start; 
+  justify-content: center;
+  gap: 20px; 
   padding: 20px;
+  width: 100%;
 }
 
-header {
+.header {
   display: flex;
+  background: rgba(248, 249, 250, 0.7);
+  backdrop-filter: blur(10px);
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1000px;
   margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+     
 }
 
-header h1 {
+.header h1 {
   font-size: 24px;
   font-weight: bold;
   margin: 0;
 }
 
-header input {
+.header h2 {
+  display: inline;
+}
+.shop-link-header{
+  padding-left: 9%;
+  flex: 1;
+}
+
+.icon-container{
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header input {
   padding: 8px 12px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -43,7 +65,7 @@ header input {
 }
 
 .search-bar{
-  width: 54.6%;
+  flex: 2;
 }
 
 .error-message {
@@ -54,12 +76,18 @@ header input {
 }
 
 .content {
+  flex: 1;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   max-width: 1000px;
+}
+
+.filter-form {
+  max-width: 23%; 
+  min-width: 200px;
+  flex-shrink: 0;
 }
 
 .filters {
@@ -123,6 +151,7 @@ header input {
   flex: 1;
 }
 
+
 .product-title, .product-price{
   padding: 0.1rem 0.3rem;
 }
@@ -183,6 +212,12 @@ header input {
   background-color: #0056b3;
 }
 
+.shop-icon-container{
+  padding:0 15% 0 15% ;
+  border-left: 2px solid #666; 
+  border-right: 2px solid #666;
+}
+
 .shop-icon:hover{
   cursor: pointer;
 }
@@ -226,6 +261,14 @@ header input {
   color: #ff5c5c;
 }
 
+.link-style-main{
+  text-decoration: none;
+  color: black;
+}
+
+.link-style-main:hover{
+  color: #1d1d1d;
+}
 
 .link-style{
   text-decoration: none;
@@ -235,3 +278,140 @@ header input {
 .link-style:hover{
   color: #1d1d1d;
 }
+
+.menu-icon-container {
+  display: inline-block;
+  position: relative;
+}
+
+.menu-icon {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  text-align: center;
+  z-index: 10;
+}
+
+.menu-item {
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.menu-item:hover {
+  background: #f0f0f0;
+}
+
+.mobile-search-container {
+  position: fixed;
+  top: 60px; 
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: none;
+}
+
+.mobile-search-container.active {
+  display: block;
+}
+
+
+.search-icon {
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+.mobile-searchbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-searchbar input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.mobile-searchbar input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .filter-form{
+    display: none;
+  }
+
+  .product-card{
+    max-width: 45%;
+  }
+
+  .search-icon {
+    display: block;
+  }
+
+  .product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+    flex: 3;
+  }
+
+  .mobile-search-container {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background: white;
+    padding: 0px;
+    border-radius: 12px;
+    z-index: 999;
+  }
+
+  .mobile-searchbar {
+    padding: 8px;
+  }
+
+  .mobile-searchbar input {
+    font-size: 18px;
+    padding: 8px;
+  }
+}
+
+
